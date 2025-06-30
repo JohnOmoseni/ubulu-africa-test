@@ -53,7 +53,6 @@ export default function ServerSideTable<TData, TValue>({
 	hidePagination,
 	hideTableHeader,
 	paginationMeta,
-	setSelectedRows,
 }: ServerSideTableProps<TData, TValue>) {
 	const [data, setData] = useState(tableData);
 	const [sorting, setSorting] = useState<ColumnSort[]>([]);
@@ -93,14 +92,14 @@ export default function ServerSideTable<TData, TValue>({
 		onPaginationChange: setPagination,
 	});
 
-	useEffect(() => {
-		if (setSelectedRows) {
-			const selectedRows = Object.keys(rowSelection)
-				.filter((index) => rowSelection[index])
-				.map((index) => data[parseInt(index)]);
-			setSelectedRows(selectedRows);
-		}
-	}, [rowSelection, data, setSelectedRows]);
+	// useEffect(() => {
+	// 	if (setSelectedRows) {
+	// 		const selectedRows = Object.keys(rowSelection)
+	// 			.filter((index) => rowSelection[index])
+	// 			.map((index) => data[parseInt(index)]);
+	// 		setSelectedRows(selectedRows);
+	// 	}
+	// }, [rowSelection, data, setSelectedRows]);
 
 	return (
 		<div className="flex-column">

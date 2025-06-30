@@ -36,8 +36,8 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 				await editPost({ post_id: post?.id });
 				handleUpdatePost(data, "update");
 			} else {
-				handleUpdatePost(data, "add");
 				await createPost(data);
+				handleUpdatePost(data, "add");
 			}
 
 			closeModal();
