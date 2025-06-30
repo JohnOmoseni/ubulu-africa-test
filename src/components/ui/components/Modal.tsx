@@ -54,7 +54,10 @@ export default function Modal({
 
 				<AlertDialogHeader>
 					<AlertDialogTitle
-						className={cn("text-lg hidden pb-3 pr-3", title && "block")}
+						className={cn(
+							"text-lg hidden pb-3 max-md:pr-7 pr-2 ",
+							title && "block"
+						)}
 					>
 						{title}
 					</AlertDialogTitle>
