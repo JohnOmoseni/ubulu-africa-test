@@ -32,6 +32,10 @@ function RichDataTable() {
 	const { mutateAsync: deleteUserMutation, isPending: isDeleting } =
 		useDeleteUser();
 
+	const handleSetSelectedRows = useCallback((rows: UserType[]) => {
+		setSelectedRows(rows);
+	}, []);
+
 	const handleAction = async (id: "delete") => {
 		const selectedIds = selectedRows.map((row) => row.id);
 		if (selectedIds.length === 0) {
@@ -45,7 +49,7 @@ function RichDataTable() {
 		} catch (error: any) {}
 	};
 
-	const users: UserType[] = data?.users ?? [];
+	const tableData = useMemo(() => data?.users ?? [], [data]);
 	const paginationMeta = useMemo(() => {
 		const total = data?.total ?? 0;
 		const limit = data?.limit ?? perPage;
@@ -63,8 +67,6 @@ function RichDataTable() {
 			to: Math.min(skip + limit, total),
 		};
 	}, [data, perPage]);
-
-	const tableData = useMemo(() => users || [], [users]);
 
 	const handlePageChange = (page: number) => {
 		console.log("page change info", page);
@@ -144,7 +146,7 @@ function RichDataTable() {
 					columnFilters={columnFilters}
 					tableData={tableData}
 					isLoading={isLoading}
-					setSelectedRows={setSelectedRows}
+					setSelectedRows={handleSetSelectedRows}
 					paginationMeta={{
 						last_page: paginationMeta.lastPage,
 						current_page: paginationMeta.currentPage,
