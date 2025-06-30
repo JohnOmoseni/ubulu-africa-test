@@ -25,3 +25,12 @@ input[type="checkbox"].input-checkbox:checked::after {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+.wmde-markdown {
+	font-family: var(--font-lato);
+	font-size: 14px;
+	line-height: 1.4;
+	word-wrap: break-word;
+	color: var(--text-foreground);
+	background-color: transparent;
+}

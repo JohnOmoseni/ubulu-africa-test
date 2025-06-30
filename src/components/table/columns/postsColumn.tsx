@@ -1,6 +1,7 @@
 import PostTableAction from "@/app/blog/_components/PostTableAction";
 import { truncateString } from "@/lib/utils";
 import { type ColumnDef } from "@tanstack/react-table";
+import MDEditor from "@uiw/react-md-editor";
 
 export const postsColumn: ColumnDef<any>[] = [
 	{
@@ -15,14 +16,18 @@ export const postsColumn: ColumnDef<any>[] = [
 		header: "Post",
 		cell: ({ row }) => {
 			const post = row.original;
+			const content = post.body ? truncateString(post.body, 90) : "No Title";
 
 			return (
 				<div className="w-full flex-column gap-1">
 					<h3 className="min-w-[20ch]">
 						{post.title ? truncateString(post.title, 50) : "No Title"}
 					</h3>
-					<p className="text-grey text-xs">
-						{post.body ? truncateString(post.body, 80) : "No Title"}
+					<p className="text-grey">
+						<MDEditor.Markdown
+							source={content}
+							style={{ whiteSpace: "pre-wrap" }}
+						/>
 					</p>
 				</div>
 			);
