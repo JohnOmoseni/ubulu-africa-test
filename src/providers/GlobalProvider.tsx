@@ -18,10 +18,10 @@ export default function GlobalProvider({
 	children: React.ReactNode;
 }>) {
 	return (
-		<PostContextProvider>
-			<QueryClientProvider client={queryClient}>
+		<QueryClientProvider client={queryClient}>
+			<PostContextProvider>
 				<Provider store={store}>{children}</Provider>
-			</QueryClientProvider>
-		</PostContextProvider>
+			</PostContextProvider>
+		</QueryClientProvider>
 	);
 }

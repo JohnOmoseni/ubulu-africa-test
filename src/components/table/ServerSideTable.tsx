@@ -94,11 +94,13 @@ export default function ServerSideTable<TData, TValue>({
 	});
 
 	useEffect(() => {
-		const selectedRows = table
-			.getSelectedRowModel()
-			.rows.map((row) => row.original);
-		setSelectedRows?.(selectedRows);
-	}, [table.getSelectedRowModel().rows]);
+		if (setSelectedRows) {
+			const selectedRows = Object.keys(rowSelection)
+				.filter((index) => rowSelection[index])
+				.map((index) => data[parseInt(index)]);
+			setSelectedRows(selectedRows);
+		}
+	}, [rowSelection, data, setSelectedRows]);
 
 	return (
 		<div className="flex-column">

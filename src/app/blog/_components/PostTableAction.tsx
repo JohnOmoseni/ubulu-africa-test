@@ -21,7 +21,9 @@ export const PostTableAction = ({ post }: { post: any }) => {
 	const onClickHandlers: { [index: number]: () => Promise<void> | void } = {
 		0: async () => {
 			await handleSetSelectedPost(post);
-			navigate(`edit/${post?.id}`);
+			navigate(`edit/${post?.id}`, {
+				state: { currentTab: 2 },
+			});
 		},
 		1: async () => {
 			try {

@@ -8,7 +8,6 @@ import BlogPost from "./blog/page";
 import RichDataTable from "./data-table/page";
 
 const tabIDs = ["Rich Data Table", "Custom Form Builder", "Mini Blog App"];
-
 function Home() {
 	const { state } = useLocation();
 	const initialTab = state?.currentTab ? state?.currentTab : 0;
@@ -36,13 +35,13 @@ function Home() {
 			</TabsPanel>
 
 			<TabsPanel activeTab={activeTab} id={tabIDs[1]} idx={1}>
-				<div className="mt-8 max-w-md mx-auto px-8 pt-4 pb-8 rounded-md shadow">
+				<div className="mt-8 max-w-md mx-auto px-6 md:px-8 pt-4 pb-8 rounded-md shadow">
 					<FormBuilder />
 				</div>
 			</TabsPanel>
 
 			<TabsPanel activeTab={activeTab} id={tabIDs[2]} idx={2}>
-				<div className="mt-6 max-w-2xl mx-auto px-8 pt-4 pb-6 rounded-md shadow">
+				<div className="mt-6 max-w-2xl mx-auto px-3.5 md:px-6 pt-4 pb-6 rounded-md shadow">
 					<BlogPost />
 				</div>
 			</TabsPanel>

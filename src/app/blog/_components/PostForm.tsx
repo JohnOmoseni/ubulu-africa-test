@@ -4,12 +4,11 @@ import CustomFormField, {
 } from "@/components/forms/CustomFormField";
 import { useCreatePost, useEditPost } from "@/actions/blog";
 import { usePosts } from "@/context/PostContext";
-import { wait } from "@/lib";
 import { useState } from "react";
 import FormWrapper from "@/components/forms/FormWrapper";
 import CustomButton from "@/components/reuseables/CustomButton";
-import TextEditor from "./TextEditor";
 import * as yup from "yup";
+import TextEditor from "./TextEditor";
 
 type PostFormProps = {
 	type?: "create" | "edit";
@@ -33,10 +32,9 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 
 		setIsLoading(true);
 		try {
-			await wait(1000);
 			if (type === "edit" && post) {
-				handleUpdatePost(data, "update");
 				await editPost({ post_id: post?.id });
+				handleUpdatePost(data, "update");
 			} else {
 				handleUpdatePost(data, "add");
 				await createPost(data);
@@ -113,28 +111,13 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 				/>
 
 				<CustomFormField
-					fieldType={FormFieldType.TEXTAREA}
-					name="content"
-					label="Content"
-					onBlur={handleBlur}
-					errors={errors}
-					touched={touched}
-					onChange={handleChange}
-					field={{
-						value: values.content,
-					}}
-				/>
-
-				<CustomFormField
 					fieldType={FormFieldType.SKELETON}
 					name="content"
 					label="Content"
 					renderSkeleton={() => (
 						<TextEditor
 							value={values.content}
-							name="content"
-							onBlur={handleBlur}
-							onHandleChange={(content: string) => {
+							onChange={(content: string) => {
 								setFieldValue("content", content);
 							}}
 						/>

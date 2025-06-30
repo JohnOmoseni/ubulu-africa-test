@@ -1,3 +1,4 @@
+import { useGetAllPosts } from "@/actions/blog";
 import { showToast } from "@/lib";
 import {
 	createContext,
@@ -10,6 +11,8 @@ import {
 interface PostCntextType {
 	selectedPost: PostType | null;
 	posts: PostType[];
+	isFetchingPosts: boolean;
+	fetchPostsError: Error | null;
 	handleUpdatePost: (
 		newPost: PostType,
 		type: "add" | "update" | "delete" | "set"
@@ -29,6 +32,17 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 		}
 	});
 	const [selectedPost, setSelectedPost] = useState<PostType | null>(null);
+	const {
+		data,
+		isLoading: isFetchingPosts,
+		error: fetchPostsError,
+	} = useGetAllPosts();
+
+	useEffect(() => {
+		if (data) {
+			setPosts(data);
+		}
+	}, [data]);
 
 	useEffect(() => {
 		try {
@@ -43,12 +57,12 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 	}, [posts]);
 
 	const handleUpdatePost = (
-		newPost: PostType | PostType[],
+		newPost: PostType,
 		type: "add" | "update" | "delete" | "set"
 	) => {
 		let message: string = "";
 
-		if (type === "add" && !Array.isArray(newPost)) {
+		if (type === "add") {
 			setPosts((prev) => {
 				if (prev.some((p) => p.id === newPost.id)) {
 					showToast("info", `Post with ID ${newPost.id} already exists`);
@@ -57,7 +71,7 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 				return [newPost, ...prev];
 			});
 			message = "Post created successfully";
-		} else if (type === "update" && !Array.isArray(newPost)) {
+		} else if (type === "update") {
 			setPosts((prev) => {
 				return prev.map((post) => {
 					if (post.id === newPost.id) {
@@ -68,13 +82,10 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 				});
 			});
 			message = "Post updated successfully";
-		} else if (type === "delete" && !Array.isArray(newPost)) {
+		} else if (type === "delete") {
 			setPosts((prev) => prev.filter((post) => post.id !== newPost.id));
 			message = "Post deleted successfully";
-		} else if (type === "set" && Array.isArray(newPost)) {
-			setPosts(newPost || []);
 		}
-
 		if (message) showToast("success", message);
 	};
 
@@ -84,7 +95,14 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 
 	return (
 		<PostContext.Provider
-			value={{ posts, handleUpdatePost, selectedPost, handleSetSelectedPost }}
+			value={{
+				posts,
+				handleUpdatePost,
+				isFetchingPosts,
+				fetchPostsError,
+				selectedPost,
+				handleSetSelectedPost,
+			}}
 		>
 			{children}
 		</PostContext.Provider>
