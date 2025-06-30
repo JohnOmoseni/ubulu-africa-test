@@ -1,7 +1,8 @@
 # Frontend Engineer Assessment
 
 This project is a submission for the Frontend Engineer Assessment, implementing a feature-rich data table, a custom form builder, and a mini blog application using React, TypeScript, and modern frontend tools. The application demonstrates proficiency in building data-driven UIs, dynamic form rendering, and CRUD operations with a clean, reusable, and scalable codebase.
-Table of Contents
+
+## Table of Contents
 
 ## Features
 
@@ -41,7 +42,7 @@ The codebase emphasizes reusable components, clean state separation, memoization
 - Enables row selection via checkboxes in each row or a header checkbox for bulk selection.
 - Includes a bulk delete button with a confirmation modal (ConfirmDelete). Note: The API does not support bulk deletion (array of IDs), so the frontend simulates this by calling deleteUserMutation for each selected ID.
 
-** Implementation Details:**
+**Implementation Details:**
 
 - Built with @tanstack/react-table for robust table functionality.
 - Uses custom components: ServerSideTable, TableGlobalSearch, TableFilters, ServerSideTablePagination.
@@ -70,11 +71,10 @@ Dynamic Rendering: Renders form fields dynamically based on a configuration arra
   All fields are required, with real-time validation feedback.
   Email fields are validated to ensure valid email format.
 
--Form Submission: Displays submitted data in a modal popup for user confirmation.
-**Bonus** - Nested Fields/Conditional Rendering:
+- Form Submission: Displays submitted data in a modal popup for user confirmation.
+  **Bonus** - Nested Fields/Conditional Rendering:
 
-- Supports conditional rendering of fields based on form state (e.g., show/hide fields based on user input).
-- Designed to be extensible for nested fields (e.g., address fields) with minimal changes.
+- Designed to be extensible for nested fields with minimal changes.
 
 **Implementation Details:**
 
@@ -85,15 +85,14 @@ Dynamic Rendering: Renders form fields dynamically based on a configuration arra
 ## Task 3: Mini Blog App
 
 - Post List: Fetches posts from https://jsonplaceholder.typicode.com/posts and displays them in a responsive list.
-  Create New Post: A form at the /new route for creating posts, stored in a global context.
-  Edit and Delete:
-  Edit posts via /edit/:id route, pre-filling the form with existing post data.
-  Delete posts with a confirmation modal.
+- Create New Post: A form at the /new route for creating posts, stored in a global context.
+- Edit and Delete: Edit posts via /edit/:id route, pre-filling the form with existing post data.
+- Delete posts with a confirmation modal.
 
 - Routing: Uses react-router-dom for navigation:
-  /: Displays the post list.
-  /new: Shows the create post form in a modal.
-  /edit/:id: Shows the edit post form in a modal.
+  -- /: Displays the post list.
+  -- /new: Shows the create post form in a modal.
+  -- /edit/:id: Shows the edit post form in a modal.
 
 - State Management: Uses Context API (PostContextProvider) to manage posts and the selected post globally.
 
@@ -103,6 +102,7 @@ Dynamic Rendering: Renders form fields dynamically based on a configuration arra
 - Handles rich text input and renders Markdown in real-time.
 
 **Implementation Details:**
+
 Simulates API calls for creating/editing posts (no endpoints provided) using local state in PostContextProvider.
 Implements optimistic updates for delete operations to enhance UX.
 Ensures responsive design with Tailwind CSS.
@@ -191,7 +191,8 @@ Dependencies:Ensure all dependencies are installed, as listed in package.json:
 ## Demo Link
 
 The application is deployed at: https://ubulu-africa-test.vercel.app/
-Project Structure
+
+### Project Structure
 
 ```js
 ├── src/
