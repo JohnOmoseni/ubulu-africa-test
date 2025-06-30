@@ -83,7 +83,7 @@ export default function ServerSideTable<TData, TValue>({
 				pageSize: paginationMeta.pageSize,
 			},
 		},
-		pageCount: paginationMeta?.last_page, //Total pages from server
+		pageCount: paginationMeta?.last_page,
 		getFilteredRowModel: getFilteredRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getCoreRowModel: getCoreRowModel(),
