@@ -1,4 +1,4 @@
-import PostTableAction from "@/app/blog/PostTableAction";
+import PostTableAction from "@/app/blog/_components/PostTableAction";
 import { truncateString } from "@/lib/utils";
 import { type ColumnDef } from "@tanstack/react-table";
 

@@ -31,6 +31,11 @@ export const PostTableAction = ({ post }: { post: any }) => {
 		},
 	};
 
+	// const handlePreview = (id: number) => {
+	// 	const externalURL = `https://www.qataloog.com/blogs/${id}`;
+	// 	window.open(externalURL, "_blank");
+	// };
+
 	const { handleItemClick, loadingStates } = usePopoverActions({
 		list: popoverList,
 		onClickHandlers,

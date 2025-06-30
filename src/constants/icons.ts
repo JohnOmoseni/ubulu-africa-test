@@ -1,8 +1,6 @@
 // REACT & LUCIDE_REACT ICONS
-import {
-	IoClose as CloseIcon,
-	IoArrowBack as ArrowBack,
-} from "react-icons/io5";
+import { IoClose as CloseIcon } from "react-icons/io5";
+import { TiArrowBack as ArrowBack } from "react-icons/ti";
 import {
 	FiLock as Lock,
 	FiSearch as SearchIcon,
@@ -32,6 +30,7 @@ export { default as NotFoundIcon } from "@/assets/svgs/not-found-icon.svg?react"
 export { default as EditIcon } from "../assets/svgs/edit-icon.svg?react";
 
 import fallback_post_img from "/images/profile.png";
+import profile from "/images/profile.png";
 
 export {
 	CloseIcon,
@@ -52,4 +51,5 @@ export {
 	SortAsc,
 	SortDesc,
 	fallback_post_img,
+	profile,
 };

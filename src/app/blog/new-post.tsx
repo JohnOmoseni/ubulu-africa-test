@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/components/Modal";
-import PostForm from "./PostForm";
+import PostForm from "./_components/PostForm";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 

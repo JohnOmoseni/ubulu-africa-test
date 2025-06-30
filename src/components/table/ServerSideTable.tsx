@@ -97,7 +97,7 @@ export default function ServerSideTable<TData, TValue>({
 		const selectedRows = table
 			.getSelectedRowModel()
 			.rows.map((row) => row.original);
-		setSelectedRows && setSelectedRows(selectedRows);
+		setSelectedRows?.(selectedRows);
 	}, [table.getSelectedRowModel().rows]);
 
 	return (

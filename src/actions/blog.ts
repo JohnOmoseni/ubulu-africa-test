@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { handleApiError, showToast } from "../lib";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
@@ -16,8 +16,6 @@ export const useGetAllPosts = () => {
 
 // MUTATIONS
 export const useCreatePost = () => {
-	const queryClient = useQueryClient();
-
 	return useMutation({
 		mutationFn: (data: any) => createPost(data),
 		onError: (error) => {
@@ -25,18 +23,14 @@ export const useCreatePost = () => {
 			console.error("[Create Post error]", error, message);
 		},
 		onSuccess: () => {
-			const message = "Post created successfully";
-			queryClient.invalidateQueries({
-				queryKey: ["posts"],
-			});
-			showToast("success", message);
+			// queryClient.invalidateQueries({
+			// 	queryKey: ["posts"],
+			// });
 		},
 	});
 };
 
 export const useEditPost = () => {
-	const queryClient = useQueryClient();
-
 	return useMutation({
 		mutationFn: (data: any) => editPost(data),
 		onError: (error) => {
@@ -44,32 +38,23 @@ export const useEditPost = () => {
 			showToast("error", message);
 			throw error;
 		},
-		onSuccess: (data, variables) => {
-			const message = data?.message || "Updated successfully";
-			queryClient.invalidateQueries({
-				queryKey: ["posts", variables.post_id],
-			});
-			queryClient.invalidateQueries({
-				queryKey: ["posts"],
-			});
-			showToast("success", message);
+		onSuccess: (_data) => {
+			// queryClient.invalidateQueries({
+			// 	queryKey: ["posts"],
+			// });
 		},
 	});
 };
 
 export const useDeletePost = () => {
-	const queryClient = useQueryClient();
-
 	return useMutation({
 		mutationFn: ({ post_id }: { post_id: string }) => deletePost({ post_id }),
 		onError: (error) => {
 			const message = error?.message || "Something went wrong";
 			showToast("error", message);
 		},
-		onSuccess: (data) => {
-			const message = data?.message || "Deleted successfully";
-			showToast("success", message);
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		onSuccess: () => {
+			// queryClient.invalidateQueries({ queryKey: ["posts"] });
 		},
 	});
 };

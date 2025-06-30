@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/components/Modal";
-import PostForm from "./PostForm";
+import PostForm from "./_components/PostForm";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePosts } from "@/context/PostContext";
@@ -12,6 +12,8 @@ const EditBlog = () => {
 		navigate("/", { state: { currentTab: 2 } });
 	}, [navigate]);
 
+	console.log("post", post);
+
 	return (
 		<>
 			<Modal
@@ -20,11 +22,7 @@ const EditBlog = () => {
 				title={`${post?.title ? post.title : "Edit Post"}`}
 			>
 				<div className="px-0.5">
-					<PostForm
-						post={post as PostType}
-						type="edit"
-						closeModal={handleClose}
-					/>
+					<PostForm post={post!} type="edit" closeModal={handleClose} />
 				</div>
 			</Modal>
 		</>

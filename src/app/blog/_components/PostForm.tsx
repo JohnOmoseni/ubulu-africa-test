@@ -3,12 +3,13 @@ import CustomFormField, {
 	FormFieldType,
 } from "@/components/forms/CustomFormField";
 import { useCreatePost, useEditPost } from "@/actions/blog";
-import FormWrapper from "@/components/forms/FormWrapper";
-import CustomButton from "@/components/reuseables/CustomButton";
-import * as yup from "yup";
 import { usePosts } from "@/context/PostContext";
 import { wait } from "@/lib";
 import { useState } from "react";
+import FormWrapper from "@/components/forms/FormWrapper";
+import CustomButton from "@/components/reuseables/CustomButton";
+import TextEditor from "./TextEditor";
+import * as yup from "yup";
 
 type PostFormProps = {
 	type?: "create" | "edit";
@@ -24,8 +25,8 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 
 	const onSubmit = async (_values: any) => {
 		const data = {
-			id: 1,
-			userId: 1,
+			id: type === "edit" ? post?.id : crypto.randomUUID(),
+			userId: type === "edit" ? post?.userId : 1,
 			title: values.title,
 			body: values.content,
 		};
@@ -48,24 +49,31 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 		}
 	};
 
-	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-		useFormik({
-			initialValues: {
-				title: post?.title || "",
-				content: post?.body || "",
-			},
-			validationSchema: yup.object().shape({
-				title: yup
-					.string()
-					.min(2, "Title must be at least 2 characters")
-					.required("Field is required"),
-				content: yup
-					.string()
-					.min(2, "Content must be at least 2 characters")
-					.required("Content is required"),
-			}),
-			onSubmit,
-		});
+	const {
+		values,
+		errors,
+		touched,
+		handleBlur,
+		handleChange,
+		handleSubmit,
+		setFieldValue,
+	} = useFormik({
+		initialValues: {
+			title: post?.title || "",
+			content: post?.body || "",
+		},
+		validationSchema: yup.object().shape({
+			title: yup
+				.string()
+				.min(2, "Title must be at least 2 characters")
+				.required("Field is required"),
+			content: yup
+				.string()
+				.min(2, "Content must be at least 2 characters")
+				.required("Content is required"),
+		}),
+		onSubmit,
+	});
 
 	return (
 		<FormWrapper
@@ -115,6 +123,22 @@ const PostForm = ({ type = "create", post, closeModal }: PostFormProps) => {
 					field={{
 						value: values.content,
 					}}
+				/>
+
+				<CustomFormField
+					fieldType={FormFieldType.SKELETON}
+					name="content"
+					label="Content"
+					renderSkeleton={() => (
+						<TextEditor
+							value={values.content}
+							name="content"
+							onBlur={handleBlur}
+							onHandleChange={(content: string) => {
+								setFieldValue("content", content);
+							}}
+						/>
+					)}
 				/>
 			</div>
 		</FormWrapper>

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { CSSProperties, ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {

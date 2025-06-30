@@ -46,6 +46,8 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 		newPost: PostType | PostType[],
 		type: "add" | "update" | "delete" | "set"
 	) => {
+		let message: string = "";
+
 		if (type === "add" && !Array.isArray(newPost)) {
 			setPosts((prev) => {
 				if (prev.some((p) => p.id === newPost.id)) {
@@ -54,20 +56,26 @@ const PostContextProvider = ({ children }: PropsWithChildren) => {
 				}
 				return [newPost, ...prev];
 			});
+			message = "Post created successfully";
 		} else if (type === "update" && !Array.isArray(newPost)) {
 			setPosts((prev) => {
 				return prev.map((post) => {
 					if (post.id === newPost.id) {
+						console.log("RUNNING", { ...post, ...newPost });
 						return { ...post, ...newPost };
 					}
 					return post;
 				});
 			});
+			message = "Post updated successfully";
 		} else if (type === "delete" && !Array.isArray(newPost)) {
 			setPosts((prev) => prev.filter((post) => post.id !== newPost.id));
+			message = "Post deleted successfully";
 		} else if (type === "set" && Array.isArray(newPost)) {
 			setPosts(newPost || []);
 		}
+
+		if (message) showToast("success", message);
 	};
 
 	const handleSetSelectedPost = async (newPost: PostType | null) => {

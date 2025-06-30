@@ -78,9 +78,9 @@ interface UsersResponse {
 
 interface PostType {
 	body: string;
-	id: number;
+	id: string | number | undefined;
 	title: string;
-	userId: number;
+	userId: string | number | undefined;
 }
 
 interface PaginationParams {

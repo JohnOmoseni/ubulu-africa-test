@@ -1,29 +1,30 @@
 import { useGetAllPosts } from "@/actions/blog";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { postsColumn } from "@/components/table/columns/postsColumn";
 import { Outlet, useNavigate } from "react-router-dom";
+import { usePosts } from "@/context/PostContext";
 import CustomButton from "@/components/reuseables/CustomButton";
 import useEmptyState from "@/hooks/useEmptyState";
 import TableGlobalSearch from "@/components/table/GlobalTableSearch";
 import CustomDataTable from "@/components/table/CustomDataTable";
-import { usePosts } from "@/context/PostContext";
 
 const BlogPost = () => {
 	const navigate = useNavigate();
 	const [globalFilter, setGlobalFilter] = useState("");
+	const hasUpdatedPosts = useRef(false);
 
-	const {
-		data: data,
-		isError,
-		error,
-		isLoading: isFetchingPosts,
-	} = useGetAllPosts();
+	const { data, isError, error, isLoading: isFetchingPosts } = useGetAllPosts();
 	const { posts, handleUpdatePost } = usePosts();
 
 	useEffect(() => {
-		if (data) {
+		if (data && hasUpdatedPosts.current === false) {
 			handleUpdatePost(data, "set");
+			hasUpdatedPosts.current = true;
 		}
+
+		return () => {
+			hasUpdatedPosts.current = true;
+		};
 	}, [data]);
 
 	const { emptyState } = useEmptyState({
@@ -33,6 +34,8 @@ const BlogPost = () => {
 	});
 
 	const tableData = useMemo(() => posts || [], [posts]);
+
+	console.log("All posts", posts);
 
 	return (
 		<>

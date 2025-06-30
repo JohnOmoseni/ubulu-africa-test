@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import images from "@/constants/images";
+import { profile } from "@/constants/icons";
 import { cn } from "@/lib/utils";
 
 type AvatarProps = {
@@ -21,7 +21,7 @@ function AvatarWrapper({
 			)}
 		>
 			<AvatarImage
-				src={src || images.fallback_avatar}
+				src={src || profile}
 				className="group-hover:scale-105 user-select-none"
 			/>
 			<AvatarFallback className="leading-none mt-px tracking-wider">
