@@ -18,17 +18,19 @@ export const postsColumn: ColumnDef<any>[] = [
 			const post = row.original;
 			const content = post.body ? truncateString(post.body, 90) : "No Title";
 
+			console.log("CONTENT", content);
+
 			return (
 				<div className="w-full flex-column gap-1">
 					<h3 className="min-w-[20ch]">
 						{post.title ? truncateString(post.title, 50) : "No Title"}
 					</h3>
-					<p className="text-grey">
+					<div className="text-grey">
 						<MDEditor.Markdown
 							source={content}
 							style={{ whiteSpace: "pre-wrap" }}
 						/>
-					</p>
+					</div>
 				</div>
 			);
 		},

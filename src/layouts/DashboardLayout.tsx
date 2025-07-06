@@ -42,7 +42,7 @@ export default function DashboardLayout() {
 	}, [isVisible, lastScrollY, scrollRef]);
 
 	return (
-		<div className="wrapper font-lato max-w-[1100px] mx-auto">
+		<div className="wrapper font-lato  mx-auto">
 			<Header />
 			<Outlet />
 			{/* <Footer isVisible={isVisible} /> */}
