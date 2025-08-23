@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-
 import Header from "./Header";
 
 export default function DashboardLayout() {
@@ -42,10 +41,9 @@ export default function DashboardLayout() {
 	}, [isVisible, lastScrollY, scrollRef]);
 
 	return (
-		<div className="wrapper font-lato  mx-auto">
+		<div className="wrapper font-lato w-full max-w-[1100px]  mx-auto">
 			<Header />
 			<Outlet />
-			{/* <Footer isVisible={isVisible} /> */}
 		</div>
 	);
 }

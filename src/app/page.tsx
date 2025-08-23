@@ -1,52 +1,38 @@
-import { SlidingTabs } from "@/components/tabs/SlidingTabs";
-import { useCallback, useState } from "react";
-import { useLocation } from "react-router-dom";
-import TabsPanel from "@/components/tabs/TabsPanel";
-import SectionWrapper from "@/layouts/SectionWrapper";
-import FormBuilder from "./form-builder/page";
-import BlogPost from "./blog/page";
-import RichDataTable from "./data-table/page";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-const tabIDs = ["Rich Data Table", "Custom Form Builder", "Mini Blog App"];
-function Home() {
-	const { state } = useLocation();
-	const initialTab = state?.currentTab ? state?.currentTab : 0;
+import data from "./data.json";
+import { AppSidebar } from "@/components/example/app-sidebar";
+import { SiteHeader } from "@/components/example/site-header";
+import { SectionCards } from "@/components/example/section-cards";
+import { ChartAreaInteractive } from "@/components/example/chart-area-interactive";
+import { DataTable } from "@/components/example/data-table";
 
-	const [activeTab, setActiveTab] = useState(initialTab || 0);
-
-	const changeTab = useCallback((id: number) => {
-		setActiveTab(id);
-	}, []);
-
+export default function ShadCNPage() {
 	return (
-		<SectionWrapper sectionTitle={""}>
-			<div className="mt-3 border-b border-border">
-				<SlidingTabs
-					activeTab={activeTab}
-					changeTab={changeTab}
-					tabIDs={tabIDs}
-				/>
-			</div>
-
-			<TabsPanel activeTab={activeTab} id={tabIDs[0]} idx={0}>
-				<div className="mt-8 max-w-3xl mx-auto px-3.5 md:px-6 pt-5 pb-8 rounded-md shadow">
-					<RichDataTable />
+		<SidebarProvider
+			className="h-svh"
+			style={
+				{
+					"--sidebar-width": "calc(var(--spacing) * 72)",
+					"--header-height": "calc(var(--spacing) * 12)",
+				} as React.CSSProperties
+			}
+		>
+			<AppSidebar variant="inset" />
+			<SidebarInset className="overflow-y-auto">
+				<SiteHeader />
+				<div className="flex flex-1 flex-col">
+					<div className="@container/main flex flex-1 flex-col gap-2">
+						<div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+							<SectionCards />
+							<div className="px-4 lg:px-6">
+								<ChartAreaInteractive />
+							</div>
+							<DataTable data={data as any} />
+						</div>
+					</div>
 				</div>
-			</TabsPanel>
-
-			<TabsPanel activeTab={activeTab} id={tabIDs[1]} idx={1}>
-				<div className="mt-8 max-w-md mx-auto px-6 md:px-8 pt-4 pb-8 rounded-md shadow">
-					<FormBuilder />
-				</div>
-			</TabsPanel>
-
-			<TabsPanel activeTab={activeTab} id={tabIDs[2]} idx={2}>
-				<div className="mt-6 max-w-2xl mx-auto px-3.5 md:px-6 pt-4 pb-6 rounded-md shadow">
-					<BlogPost />
-				</div>
-			</TabsPanel>
-		</SectionWrapper>
+			</SidebarInset>
+		</SidebarProvider>
 	);
 }
-
-export default Home;

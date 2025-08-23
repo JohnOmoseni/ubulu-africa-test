@@ -12,7 +12,7 @@ const SectionWrapper = ({ children, mainContainerStyles }: Props) => {
 		<>
 			<main
 				className={cn(
-					"min-h-[80vh] w-full overflow-y-auto py-3 pb-4 sm:py-6 max-w-[1100px] mx-auto",
+					"min-h-[80vh] w-full overflow-y-auto py-3 pb-4 sm:py-6 mx-auto",
 					mainContainerStyles,
 					!mainContainerStyles && "px-3.5 md:px-6"
 				)}
