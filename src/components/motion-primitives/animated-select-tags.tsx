@@ -18,7 +18,6 @@ export default function AnimatedTags({
 	className = "",
 }: AnimatedTagsProps) {
 	const [internalSelected, setInternalSelected] = useState<string[]>([]);
-	const [internalTags, setInternalTags] = useState<string[]>(initialTags);
 
 	const selectedTag = controlledSelectedTags ?? internalSelected;
 	const tags = initialTags.filter((tag) => !selectedTag.includes(tag));
