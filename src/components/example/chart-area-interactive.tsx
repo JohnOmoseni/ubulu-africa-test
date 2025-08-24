@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -127,7 +127,7 @@ const chartConfig = {
 	},
 	desktop: {
 		label: "Desktop",
-		color: "var(--primary)",
+		color: "#ff0000",
 	},
 	mobile: {
 		label: "Mobile",
@@ -156,6 +156,7 @@ export function ChartAreaInteractive() {
 		}
 		const startDate = new Date(referenceDate);
 		startDate.setDate(startDate.getDate() - daysToSubtract);
+
 		return date >= startDate;
 	});
 
@@ -250,6 +251,7 @@ export function ChartAreaInteractive() {
 								});
 							}}
 						/>
+						{/* <YAxis tickLine={false}  /> */}
 						<ChartTooltip
 							cursor={false}
 							content={
@@ -266,14 +268,14 @@ export function ChartAreaInteractive() {
 						/>
 						<Area
 							dataKey="mobile"
-							type="natural"
+							type="basis"
 							fill="url(#fillMobile)"
 							stroke="var(--color-mobile)"
 							stackId="a"
 						/>
 						<Area
 							dataKey="desktop"
-							type="natural"
+							type="basis"
 							fill="url(#fillDesktop)"
 							stroke="var(--color-desktop)"
 							stackId="a"
